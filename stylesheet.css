@@ -1,0 +1,94 @@
+body {
+    background-color: rgb(48, 247, 180);
+    margin: 0;
+}
+button {
+    background-color: chocolate;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.psw {
+    float: right;
+    color: black;
+    margin-top: 3%;
+}
+.psw a {
+    color: black;
+}
+.c {
+    width: auto;
+    padding: 2% 5%;
+    float: left;
+    background-color: #f44336;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.navbar {
+    overflow: hidden;
+    background-color: black;
+    grid-column-start: 1;
+    grid-column-end: 13;
+}
+.navbar a {
+    font-size: 100%;
+    color: white;
+    text-align: center;
+    padding: 1% 2%;
+    text-decoration: none;
+}
+.modal-window {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+.modal-window input {
+    border-radius: 7px;
+    width: 100%;
+    font-size: 100%;
+}
+.modal-window > div {
+    width: 25%;
+    border-radius: 3%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2%;
+    background-color: white;
+}
+.close {
+    color: #aaa;
+    line-height: 40px;
+    font-size: 150%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 70px;
+    text-decoration: none;
+}
+.modal-window:target {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+}
+.navbar a:hover, .dr .fl:hover {
+    background-color: red;
+}
+.modal-window button:hover {background-color: #4CAF50}
