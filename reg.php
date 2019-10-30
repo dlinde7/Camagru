@@ -18,14 +18,17 @@ if (isset($_POST['user'])) {
         VALUES (:username, :email, :password, now())";
 
         $tst = $dp->prepare($sql);
-        if ($pwd == $pwd2) {
-            $tst->execute(array(':username' => $user, ':email' => $email, ':password' => $hpwd));
-        }
-        else {
-            $result = "Passwords do not match";
-        }
+        include 'error.php';
     } catch (PDOException $e) {
-        $result = "An ERROR occured:".$e->getMessage();
+        $dup = "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry";
+        if (strncmp($e, $dup, strlen($dup))) {
+            if (strstr($e, "username")) {
+                $result2 = "Username already exist";
+            }
+            elseif (strstr($e, "email")) {
+                $result2 = "Email already in use";
+            }
+        }
     }
 }
 
@@ -41,7 +44,14 @@ $dp = null;
     <br>
 
     <?php
-    if (isset($result)) echo $result;
+    if (isset($result2)) {
+        echo $result2;
+    }
+    if (isset($result)) {
+        foreach ($result as $value) {
+            echo "$value <br>";
+        }
+    }
     ?>
 
     <form method="post" action="">
