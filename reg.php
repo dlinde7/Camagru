@@ -18,7 +18,12 @@ if (isset($_POST['user'])) {
         VALUES (:username, :email, :password, now())";
 
         $tst = $dp->prepare($sql);
-        $tst->execute(array(':username' => $user, ':email' => $email, ':password' => $hpwd));
+        if ($pwd == $pwd2) {
+            $tst->execute(array(':username' => $user, ':email' => $email, ':password' => $hpwd));
+        }
+        else {
+            $result = "Passwords do not match";
+        }
     } catch (PDOException $e) {
         $result = "An ERROR occured:".$e->getMessage();
     }
