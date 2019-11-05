@@ -39,6 +39,8 @@ if (isset($_POST['login'])) {
         $result = "Username or Password was incorrect";
     }
 }
+
+$dp = null;
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +59,8 @@ if (isset($_POST['login'])) {
         <tr><td>Password</td>
         <td><input type="password" value="" placeholder="Enter Password" required name="pwd"></td></tr>
         <tr><td></td><td><input type="submit" value="Login" name="login"></td></tr>
+        <tr><td><a href="reg.php">Sign up</a></td>
+        <td>Forgot <a href="pwdre.php">password?</a></td></tr>
     </table>
     </form>
 </body>

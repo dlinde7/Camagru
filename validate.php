@@ -45,4 +45,6 @@ if (isset($_GET['token'])) {
         }
     }
 }
+
+$dp = null;
 ?>

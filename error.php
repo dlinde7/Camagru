@@ -44,7 +44,7 @@ if ($er != 1) {
 
     $header = 'MIME-Version: 1.0'."\r\n";
     $header .= 'Content-type: text/html; charset=UTF-8'."\r\n";
-    $header .= 'From: Sticket'."\r\n";
+    $header .= 'From: Sticket@NoReply.co.za'."\r\n";
 
     $message = '
     <html>
