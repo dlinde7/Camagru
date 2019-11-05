@@ -11,11 +11,13 @@ if (isset($_POST['user'])) {
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
     $pwd2 = $_POST['repwd'];
+    $url = $_SERVER['HTTP_HOST'].str_replace("reg.php", "", $_SERVER['REQUEST_URI']);
 
     $hpwd = password_hash($pwd, PASSWORD_DEFAULT);
+    $token = bin2hex(random_bytes(10));
     try {
-        $sql = "INSERT INTO users (username, email, password, reg_date)
-        VALUES (:username, :email, :password, now())";
+        $sql = "INSERT INTO users (username, email, password, token, reg_date)
+        VALUES (:username, :email, :password, :token, now())";
 
         $tst = $dp->prepare($sql);
         include 'error.php';

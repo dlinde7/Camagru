@@ -17,16 +17,22 @@ if (isset($_POST['login'])) {
 
     if($row = $st->fetch()){
         $id = $row['id'];
+        $valid = $row['valid'];
         $h_pwd = $row['password'];
         $username = $row['username'];
 
-        if (password_verify($pwd, $h_pwd)) {
-            $_SESSION['id'] = $id;
-            $_SESSION['username'] = $username;
-            header("location: index.php");
+        if ($valid == 'Y'){
+            if (password_verify($pwd, $h_pwd)) {
+                $_SESSION['id'] = $id;
+                $_SESSION['username'] = $username;
+                header("location: index.php");
+            }
+            else {
+                $result = "Username or Password was incorrect";
+            }
         }
         else {
-            $result = "Username or Password was incorrect";
+            $result = "Account not verified";
         }
     }
     else {

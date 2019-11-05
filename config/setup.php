@@ -25,6 +25,8 @@ try {
     username VARCHAR(30) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(300) NOT NULL,
+    valid VARCHAR(1) NOT NULL DEFAULT 'N',
+    token VARCHAR(100) NOT NULL UNIQUE,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";
     // use exec() because no results are returned
