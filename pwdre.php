@@ -12,7 +12,7 @@ if (isset($_POST['email'])) {
 
     $hpwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-    $sql = "SELECT id, usename, password, valid FROM users WHERE email = :email";
+    $sql = "SELECT id, username, password, valid FROM users WHERE email = :email";
     $st = $dp->prepare($sql);
     $st->execute(array(':email' => $email));
 
