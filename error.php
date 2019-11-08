@@ -40,7 +40,7 @@ if ($c == 1) {
 if ($er != 1) {
     $tst->execute(array(':username' => $user, ':email' => $email, ':password' => $hpwd, ':token' => $token));
 
-    $subject = "Sticket Acount Verification";
+    $subject = "Sticket Account Verification";
 
     $header = 'MIME-Version: 1.0'."\r\n";
     $header .= 'Content-type: text/html; charset=UTF-8'."\r\n";

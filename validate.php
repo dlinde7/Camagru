@@ -1,10 +1,5 @@
 <?php
-include_once 'config/database.php';
-
-try {
-    $dp = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-    $dp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {}
+include_once 'connection.php';
 
 $n = 0;
 if (isset($_GET['token'])) {
@@ -19,7 +14,9 @@ if (isset($_GET['token'])) {
             $st2->execute(array(':valid' => 'Y', ':id' => $row['id']));
         }
         else {
-            echo "Account already validated";
+            echo "Account already validated"; ?>
+            <br><a href="login.php">Login</a>
+            <?php
             $n = 5;
         }
     }
@@ -34,7 +31,9 @@ if (isset($_GET['token'])) {
 
         if ($row = $st->fetch()) {
             if ($row['valid'] == 'Y') {
-                echo "Account succesfully validated";
+                echo "Account succesfully validated"; ?>
+                 <br><a href="login.php">Login</a>
+            <?php
             }
             else {
                 echo "Error with validation";
