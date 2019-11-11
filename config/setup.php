@@ -64,16 +64,34 @@ try {
     // set the PDO error mode to exception
     $dp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // sql to create table
-    $sql = "CREATE TABLE IF NOT EXISTS likecom (
+    $sql = "CREATE TABLE IF NOT EXISTS com (
     `id` INT(100) NOT NULL , 
-    `userid` INT(10) NOT NULL , 
-    `like` VARCHAR(1) NOT NULL DEFUALT 'N',
-    `com` VARCHAR(150), 
+    `user` INT(30) NOT NULL ,
+    `com` VARCHAR(150) NOT NULL, 
     up_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";
     // use exec() because no results are returned
     $dp->query($sql);
-    echo "Table likecom created successfully";
+    echo "Table com created successfully<br>";
+    }
+catch(PDOException $e)
+{
+    echo $sql . "<br>" . $e->getMessage();
+}
+try {
+    $dp = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    // set the PDO error mode to exception
+    $dp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // sql to create table
+    $sql = "CREATE TABLE IF NOT EXISTS `like` (
+    `id` INT(100) NOT NULL , 
+    `userid` INT(10) NOT NULL ,
+    `like` VARCHAR(1) NOT NULL, 
+    up_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )";
+    // use exec() because no results are returned
+    $dp->query($sql);
+    echo "Table like created successfully";
     }
 catch(PDOException $e)
 {
