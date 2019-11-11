@@ -53,7 +53,7 @@ try {
     )";
     // use exec() because no results are returned
     $dp->query($sql);
-    echo "Table gallery created successfully";
+    echo "Table gallery created successfully<br>";
     }
 catch(PDOException $e)
 {
@@ -65,10 +65,10 @@ try {
     $dp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // sql to create table
     $sql = "CREATE TABLE IF NOT EXISTS likecom (
-    id INT(100) UNSIGNED NOT NULL,
-    userid INT(10) NOT NULL,
-    like VARCHAR(1) NOT NULL,
-    com VARCHAR(150) NOT NULL,
+    `id` INT(100) NOT NULL , 
+    `userid` INT(10) NOT NULL , 
+    `like` VARCHAR(1) NOT NULL DEFUALT 'N',
+    `com` VARCHAR(150), 
     up_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";
     // use exec() because no results are returned
