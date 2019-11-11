@@ -17,5 +17,23 @@ include_once 'session.php';
     <a href="accountset.php">Profile settings</a>
     <a href="logout.php">Logout</a>
     <?php endif ?>
+    <div class="gg">
+    <?php
+
+    include_once 'connection.php';
+
+    $sql = "SELECT * FROM gallery ORDER BY id DESC";
+    $st = $dp->prepare($sql);
+    $st->execute();
+
+    While ($row = $st->fetch()) {
+        echo '<a href="#">
+            <img src="gallery/'.$row['imgname'].'">
+            <h1>'.$row["imgtitle"].'</h1>
+            <p>'.$row["imgdes"].'</p>
+        </a>';
+    }
+        ?>
+    </div>
 </body>
 </html>

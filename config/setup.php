@@ -32,12 +32,53 @@ try {
     )";
     // use exec() because no results are returned
     $dp->query($sql);
-    echo "Table users created successfully";
+    echo "Table users created successfully<br>";
     }
 catch(PDOException $e)
     {
     echo $sql . "<br>" . $e->getMessage();
     }
+try {
+    $dp = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    // set the PDO error mode to exception
+    $dp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // sql to create table
+    $sql = "CREATE TABLE IF NOT EXISTS gallery (
+    id INT(100) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    imgname VARCHAR(30) NOT NULL UNIQUE,
+    imgtitle VARCHAR(30) NOT NULL,
+    imgdes VARCHAR(200) NOT NULL,
+    userid INT(10) NOT NULL,
+    up_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )";
+    // use exec() because no results are returned
+    $dp->query($sql);
+    echo "Table gallery created successfully";
+    }
+catch(PDOException $e)
+{
+    echo $sql . "<br>" . $e->getMessage();
+}
+try {
+    $dp = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    // set the PDO error mode to exception
+    $dp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // sql to create table
+    $sql = "CREATE TABLE IF NOT EXISTS likecom (
+    id INT(100) UNSIGNED NOT NULL,
+    userid INT(10) NOT NULL,
+    like VARCHAR(1) NOT NULL,
+    com VARCHAR(150) NOT NULL,
+    up_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )";
+    // use exec() because no results are returned
+    $dp->query($sql);
+    echo "Table likecom created successfully";
+    }
+catch(PDOException $e)
+{
+    echo $sql . "<br>" . $e->getMessage();
+}
 
 $dp = null;
 ?>
