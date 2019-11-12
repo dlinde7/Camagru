@@ -66,7 +66,20 @@ if (isset($_POST['com'])) {
         else {
             echo '<a href="like.php?id='.$_GET['id'].'">'.$lik.'&#x2661</a>';
         }
-
+        ?>
+        <?php if(isset($_SESSION['username'])): ?>
+        <?php 
+        if (isset($result)) {
+            echo $result;
+        } ?>
+        <form method="post" action="">
+        <table>
+            <tr><td>Comment</td>
+            <td><input type="textarea" name="com" value="" placeholder="Enter your comment" required></td></tr>
+            <tr><td></td><td><input type="submit" value="Post"></td></tr>
+        </table>
+        <?php endif ?>
+        <?php
         $sql3 = "SELECT * FROM com WHERE id = :id ORDER BY up_date DESC";
         $st3 = $dp->prepare($sql3);
         $st3->execute(array(':id' => $_GET['id']));
@@ -77,18 +90,6 @@ if (isset($_POST['com'])) {
         }
     ?>
     </div>
-    <?php if(isset($_SESSION['username'])): ?>
-    <?php 
-    if (isset($result)) {
-        echo $result;
-    } ?>
-    <form method="post" action="">
-    <table>
-        <tr><td>Comment</td>
-        <td><input type="textarea" name="com" value="" placeholder="Enter your comment" required></td></tr>
-        <tr><td></td><td><input type="submit" value="Post"></td></tr>
-    </table>
-    <?php endif ?>
 </body>
 </html>
 
