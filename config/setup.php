@@ -66,7 +66,7 @@ try {
     // sql to create table
     $sql = "CREATE TABLE IF NOT EXISTS com (
     `id` INT(100) NOT NULL , 
-    `user` INT(30) NOT NULL ,
+    `user` VARCHAR(30) NOT NULL ,
     `com` VARCHAR(150) NOT NULL, 
     up_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";

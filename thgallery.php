@@ -8,7 +8,7 @@ include_once 'session.php';
     <title>Camagru Home</title>
 </head>
 <body>
-    <a href="">Home</a>
+    <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
     <a href="login.php">Login</a>
     <br>
@@ -17,14 +17,24 @@ include_once 'session.php';
     <a href="account.php">Profile</a>
     <a href="logout.php">Logout</a>
     <?php endif ?>
+    <?php
+    include_once 'connection.php';
+
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $st = $dp->prepare($sql);
+    $st->execute(array(':id' => $_GET['userid']));
+    $row = $st->fetch();
+    echo '<h1>'.$row['username'].'</h1>';
+    
+    ?>
     <div class="gg">
     <?php
 
     include_once 'connection.php';
 
-    $sql = "SELECT * FROM gallery ORDER BY id DESC";
+    $sql = "SELECT * FROM gallery WHERE userid = :userid ORDER BY id DESC";
     $st = $dp->prepare($sql);
-    $st->execute();
+    $st->execute(array(':userid' => $_GET['userid']));
 
     While ($row = $st->fetch()) {
         echo '<a href="com.php?id='.$row['id'].'">

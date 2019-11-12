@@ -8,23 +8,22 @@ include_once 'session.php';
     <title>Camagru Home</title>
 </head>
 <body>
-    <a href="">Home</a>
+    <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
     <a href="login.php">Login</a>
     <br>
     <a href="reg.php">Sign Up</a>
     <?php else: ?>
-    <a href="account.php">Profile</a>
+    <a href="accountset.php">Profile settings</a>
     <a href="logout.php">Logout</a>
-    <?php endif ?>
     <div class="gg">
     <?php
 
     include_once 'connection.php';
 
-    $sql = "SELECT * FROM gallery ORDER BY id DESC";
+    $sql = "SELECT * FROM gallery WHERE userid = :userid ORDER BY id DESC";
     $st = $dp->prepare($sql);
-    $st->execute();
+    $st->execute(array(':userid' => $_SESSION['id']));
 
     While ($row = $st->fetch()) {
         echo '<a href="com.php?id='.$row['id'].'">
@@ -33,5 +32,6 @@ include_once 'session.php';
     }
         ?>
     </div>
+    <?php endif ?>
 </body>
 </html>

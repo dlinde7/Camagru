@@ -76,7 +76,7 @@ $dp = null;
             <tr><td></td><td><input style='float:right'type="submit" name="ResetBtn" value="Update profile"></td></tr>
         </table>
         </form>
-    <p><a href="index.php">Back</a><br><a href="logout.php">Log out</a></p>
+    <p><a href="account.php">Back</a><br><a href="logout.php">Log out</a></p>
     <?php endif ?>
 </body>
 </html>

@@ -54,9 +54,9 @@ $dp = null;
     <form method="post" action="">
     <table>
         <tr><td>Username</td>
-        <td><input type="tesxt" name="user" value="" placeholder="Enter Username" required></td></tr>
+        <td><input type="text" name="user" value="" placeholder="Enter Username" required></td></tr>
         <tr><td>Email</td>
-        <td><input type="tesxt" name="email" value="" placeholder="Enter Email" required></td></tr>
+        <td><input type="text" name="email" value="" placeholder="Enter Email" required></td></tr>
         <tr><td>Password</td>
         <td><input type="password" name="pwd" value="" placeholder="Enter Password" required></td></tr>
         <tr><td>Re-Password</td>
