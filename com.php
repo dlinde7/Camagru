@@ -25,7 +25,6 @@ if (isset($_POST['com'])) {
     <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
     <a href="login.php">Login</a>
-    <br>
     <a href="reg.php">Sign Up</a>
     <?php else: ?>
     <a href="account.php">Profile</a>

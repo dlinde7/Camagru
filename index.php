@@ -11,7 +11,6 @@ include_once 'session.php';
     <a href="">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
     <a href="login.php">Login</a>
-    <br>
     <a href="reg.php">Sign Up</a>
     <?php else: ?>
     <a href="account.php">Profile</a>
