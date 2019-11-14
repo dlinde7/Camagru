@@ -2,7 +2,7 @@
 include_once 'connection.php';
 
 if (isset($_POST['email'])) {
-    $email = $_POST['email'];
+    $email = htmlentities($_POST['email']);
     $pwd = bin2hex(random_bytes(5));
 
     $hpwd = password_hash($pwd, PASSWORD_DEFAULT);
@@ -11,7 +11,7 @@ if (isset($_POST['email'])) {
     $st = $dp->prepare($sql);
     $st->execute(array(':email' => $email));
 
-    if($row = $st->fetch()){
+    if($row = $st->fetch()) {
         if ($row['valid'] == 'Y') {
             $sql2 = "UPDATE users SET password = :password WHERE id = :id";
             $st2 = $dp->prepare($sql2);

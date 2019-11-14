@@ -5,7 +5,7 @@ $n = 0;
 if (isset($_GET['token'])) {
     $sql = "SELECT id, valid FROM users WHERE token = :token";
     $st = $dp->prepare($sql);
-    $st->execute(array(':token' => $_GET['token']));
+    $st->execute(array(':token' => htmlentities($_GET['token'])));
 
     if($row = $st->fetch()){
         if ($row['valid'] != 'Y') {
@@ -27,7 +27,7 @@ if (isset($_GET['token'])) {
     if ($n != 5) {
         $sql = "SELECT id, valid FROM users WHERE token = :token";
         $st = $dp->prepare($sql);
-        $st->execute(array(':token' => $_GET['token']));
+        $st->execute(array(':token' => htmlentities($_GET['token'])));
 
         if ($row = $st->fetch()) {
             if ($row['valid'] == 'Y') {

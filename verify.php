@@ -3,10 +3,9 @@
 
     if ($_GET['re']) {
 
-        echo $_GET['re'];
         $sql = "SELECT * FROM users WHERE username = :user";
         $st = $dp->prepare($sql);
-        $st->execute(array(':user' => $_GET['re']));
+        $st->execute(array(':user' => htmlentities($_GET['re'])));
     
         if($row = $st->fetch()){
             $id = $row['id'];
@@ -38,12 +37,16 @@
         ';
     
         $ch = mail($email, $subject, $message, $header);
-        if ($ch == true)
-        header('location: login.php');
+        if ($ch == true) {
+            header('location: login.php');
         }
         else {
             echo "ERROR";
         }
 
         $dp = null;
+    }
+    else {
+        header('location: login.php');
+    }
     ?>

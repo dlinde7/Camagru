@@ -2,10 +2,10 @@
 include_once 'connection.php';
 
 if (isset($_POST['user'])) {
-    $user = $_POST['user'];
-    $email = $_POST['email'];
-    $pwd = $_POST['pwd'];
-    $pwd2 = $_POST['repwd'];
+    $user = htmlentities($_POST['user']);
+    $email = htmlentities($_POST['email']);
+    $pwd = htmlentities($_POST['pwd']);
+    $pwd2 = htmlentities($_POST['repwd']);
     $url = $_SERVER['HTTP_HOST'].str_replace("reg.php", "", $_SERVER['REQUEST_URI']);
 
     $hpwd = password_hash($pwd, PASSWORD_DEFAULT);

@@ -6,7 +6,12 @@ if (strlen($com) > 150) {
 }
 
 if ($dd != 1) {
-    $tst->execute(array(':id' => $_GET['id'], ':user' => $_SESSION['username'], ':com' => $com));
+    try {
+        $tst->execute(array(':id' => $_GET['id'], ':user' => $_SESSION['username'], ':com' => $com));
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+    
 
     include_once 'connection.php';
 

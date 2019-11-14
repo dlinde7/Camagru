@@ -3,11 +3,11 @@ include_once 'session.php';
 include_once 'connection.php';
 
 if (isset($_POST['cpwd'])) {
-    $cpwd = $_POST['cpwd'];
-    $user = $_POST['new_user'];
-    $email = $_POST['email'];
-    $pwd = $_POST['new_pwd'];
-    $pwd2 = $_POST['repwd'];
+    $cpwd = htmlentities($_POST['cpwd']);
+    $user = htmlentities($_POST['new_user']);
+    $email = htmlentities($_POST['email']);
+    $pwd = htmlentities($_POST['new_pwd']);
+    $pwd2 = htmlentities($_POST['repwd']);
     if(isset($_POST['PrefBtn'])){
         $pref = $_POST['PrefBtn'];
     }

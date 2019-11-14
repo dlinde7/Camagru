@@ -3,7 +3,7 @@ include_once 'session.php';
 include_once 'connection.php';
 
 if (isset($_POST['com'])) {
-    $com = $_POST['com'];
+    $com = htmlentities($_POST['com']);
     
     try {
         $sql = "INSERT INTO com (id, user, com, up_date)
@@ -36,7 +36,7 @@ if (isset($_POST['com'])) {
 
         $sql = "SELECT * FROM gallery WHERE id = :id";
         $st = $dp->prepare($sql);
-        $st->execute(array(':id' => $_GET['id']));
+        $st->execute(array(':id' => htmlentities($_GET['id'])));
 
         if ($row = $st->fetch()) {
             echo '<img src="gallery/'.$row['imgname'].'">
@@ -47,7 +47,7 @@ if (isset($_POST['com'])) {
 
         $sql2 = "SELECT `like`, userid FROM `like` WHERE id = :id";
         $st2 = $dp->prepare($sql2);
-        $st2->execute(array(':id' => $_GET['id']));
+        $st2->execute(array(':id' => htmlentities($_GET['id'])));
 
         $lik = 0;
         $lik2 = 0;
@@ -60,10 +60,10 @@ if (isset($_POST['com'])) {
         }
 
         if ($lik2 == 1) {
-            echo '<a href="like.php?id='.$_GET['id'].'">'.$lik.'&#x2764</a>';
+            echo '<p>'.$lik.'<a href="like.php?id='.$_GET['id'].'">&#x2764</a></p>';
         }
         else {
-            echo '<a href="like.php?id='.$_GET['id'].'">'.$lik.'&#x2661</a>';
+            echo '<p>'.$lik.'<a href="like.php?id='.$_GET['id'].'">&#x2661</a></p>';
         }
         ?>
         <?php if(isset($_SESSION['username'])): ?>
@@ -74,14 +74,14 @@ if (isset($_POST['com'])) {
         <form method="post" action="">
         <table>
             <tr><td>Comment</td>
-            <td><input type="textarea" name="com" value="" placeholder="Enter your comment" required></td></tr>
+            <td><textarea name="com" placeholder="Enter comment..." required></textarea></td></tr>
             <tr><td></td><td><input type="submit" value="Post"></td></tr>
         </table>
         <?php endif ?>
         <?php
         $sql3 = "SELECT * FROM com WHERE id = :id ORDER BY up_date DESC";
         $st3 = $dp->prepare($sql3);
-        $st3->execute(array(':id' => $_GET['id']));
+        $st3->execute(array(':id' => htmlentities($_GET['id'])));
 
         While ($row3 = $st3->fetch()) {
             echo '<h3>'.$row3["user"].'</h3>

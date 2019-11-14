@@ -21,7 +21,7 @@ include_once 'session.php';
 
     $sql = "SELECT * FROM users WHERE id = :id";
     $st = $dp->prepare($sql);
-    $st->execute(array(':id' => $_GET['userid']));
+    $st->execute(array(':id' => htmlentities($_GET['userid'])));
     $row = $st->fetch();
     echo '<h1>'.$row['username'].'</h1>';
     
@@ -33,7 +33,7 @@ include_once 'session.php';
 
     $sql = "SELECT * FROM gallery WHERE userid = :userid ORDER BY id DESC";
     $st = $dp->prepare($sql);
-    $st->execute(array(':userid' => $_GET['userid']));
+    $st->execute(array(':userid' => htmlentities($_GET['userid'])));
 
     While ($row = $st->fetch()) {
         echo '<a href="com.php?id='.$row['id'].'">

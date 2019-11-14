@@ -3,8 +3,8 @@ include_once 'session.php';
 include_once 'connection.php';
 
 if (isset($_POST['login'])) {
-    $user = $_POST['user'];
-    $pwd = $_POST['pwd'];
+    $user = htmlentities($_POST['user']);
+    $pwd = htmlentities($_POST['pwd']);
 
     $sqldt = "SELECT * FROM users WHERE username = :user";
     $st = $dp->prepare($sqldt);
@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
 if ($_GET['re']) {
     $sqldt = "SELECT * FROM users WHERE username = :user";
     $st = $dp->prepare($sqldt);
-    $st->execute(array(':user' => $_GET['re']));
+    $st->execute(array(':user' => htmlentities($_GET['re'])));
 
     if($row = $st->fetch()){
         $id = $row['id'];
