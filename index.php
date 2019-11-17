@@ -56,13 +56,6 @@ include_once 'session.php';
     }
     catch(PDOException $err){
     }
-    
-
-    $sql = "SELECT * FROM gallery ORDER BY id DESC";
-    $st = $dp->prepare($sql);
-    $st->execute();
-
-    
         ?>
     </div>
 </body>

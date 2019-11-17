@@ -48,8 +48,10 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Home</title>
-    <link rel="stylesheet" type="text/css" href="videoCss.css">
+    <meta charset="utf-8">
+	<title>Document</title>
+
+	<link rel="stylesheet" type="text/css" href="videoCss.css">
 </head>
 <body>
     <a href="index.php">Home</a>
@@ -61,13 +63,16 @@ if (isset($_POST['submit'])) {
     <a href="upload.php">Upload</a>
     <a href="logout.php">Logout</a>
 
-    <div>
-		<video id="video" width="400" height="300" autoplay></video>
-		<a href="" id="capture">Take photo</a>
-		<canvas id="canvas" width="400" height="300"></canvas>
-	</div>
-​
-	<script src="image.js"></script>
+    <div class="booth">
+		    <video id="video" width="400" height="300" autoplay></video>
+            <canvas id="canvas" width="400" height="300" name="image"></canvas>
+            <img id="photo" src="Logo/43.png" alt="" width="400">
+            <br>
+            <button id="snap" class="booth-capture-button">Take photo</button>
+            <button id="upload" class="booth-capture-button">Upload</button>
+    </div>
+    
+	<script src="ImageCapture.js"></script>
     
     <?php if (isset($result)) {
         echo $result;
@@ -78,18 +83,43 @@ if (isset($_POST['submit'])) {
         </form>
     <div class="gg">
     <?php
+include_once 'connection.php';
 
-    include_once 'connection.php';
-
-    $sql = "SELECT * FROM upload WHERE userid = :userid ORDER BY id DESC";
+try{
+    $sql = "SELECT * FROM upload WHERE userid = :userid";
     $st = $dp->prepare($sql);
-    $st->execute(array(':userid' => $_SESSION['id']));
+    $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
+    $total = $st->rowCount();
+    if(!isset($_GET['page'])){
+        $page = 1;
+    }
+    else{
+        if(is_numeric($_GET['page'])){
+            $page = $_GET['page'];
+        }
+        else{
+            $page = 1;
+        }
+    }
+    $amount = 10;
+    $numpages = ceil($total/$amount);
+    $start = ($page - 1) * $amount;
 
+    $sql = "SELECT * FROM upload WHERE userid = :userid ORDER BY id DESC LIMIT $start, $amount";
+    $st = $dp->prepare($sql);
+    $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
     While ($row = $st->fetch()) {
         echo '<a href="post.php?id='.$row['id'].'">
-            <img src="upload/'.$row['imgname'].'">
+            <img src="gallery/'.$row['imgname'].'">
             </a>';
     }
+    echo '<hr>';
+    for($page = 1; $page <= $numpages; $page++){
+        echo "<a href='upload.php?page=".$page."'> ".$page." </a>";
+    }
+}
+catch(PDOException $err){
+}
         ?>
     </div>
     <?php endif ?>

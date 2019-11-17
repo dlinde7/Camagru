@@ -1,0 +1,19 @@
+.booth {
+	width: 805px;
+	background: lavenderblush;
+	border: 10px solid #ddd;
+	margin: 0 auto;
+}
+
+.booth-capture-button {
+	margin: 10px 0;
+	padding: 10px 20px;
+	background-color: forestgreen;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+}
+
+#canvas {
+	display: none;
+}

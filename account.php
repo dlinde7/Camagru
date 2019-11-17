@@ -18,17 +18,42 @@ include_once 'session.php';
     <a href="logout.php">Logout</a>
     <div class="gg">
     <?php
-
     include_once 'connection.php';
 
-    $sql = "SELECT * FROM gallery WHERE userid = :userid ORDER BY id DESC";
-    $st = $dp->prepare($sql);
-    $st->execute(array(':userid' => $_SESSION['id']));
+    try{
+        $sql = "SELECT * FROM gallery WHERE userid = :userid";
+        $st = $dp->prepare($sql);
+        $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
+        $total = $st->rowCount();
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }
+        else{
+            if(is_numeric($_GET['page'])){
+                $page = $_GET['page'];
+            }
+            else{
+                $page = 1;
+            }
+        }
+        $amount = 10;
+        $numpages = ceil($total/$amount);
+        $start = ($page - 1) * $amount;
 
-    While ($row = $st->fetch()) {
-        echo '<a href="com.php?id='.$row['id'].'">
-            <img src="gallery/'.$row['imgname'].'">
-            </a>';
+        $sql = "SELECT * FROM gallery WHERE userid = :userid ORDER BY id DESC LIMIT $start, $amount";
+        $st = $dp->prepare($sql);
+        $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
+        While ($row = $st->fetch()) {
+            echo '<a href="com.php?id='.$row['id'].'">
+                <img src="gallery/'.$row['imgname'].'">
+                </a>';
+        }
+        echo '<hr>';
+        for($page = 1; $page <= $numpages; $page++){
+            echo "<a href='account.php?page=".$page."'> ".$page." </a>";
+        }
+    }
+    catch(PDOException $err){
     }
         ?>
     </div>
