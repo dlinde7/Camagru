@@ -14,6 +14,7 @@ include_once 'session.php';
     <a href="reg.php">Sign Up</a>
     <?php else: ?>
     <a href="account.php">Profile</a>
+    <a href="upload.php">Upload</a>
     <a href="logout.php">Logout</a>
     <?php endif ?>
     <?php

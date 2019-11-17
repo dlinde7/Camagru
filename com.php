@@ -28,6 +28,7 @@ if (isset($_POST['com'])) {
     <a href="reg.php">Sign Up</a>
     <?php else: ?>
     <a href="account.php">Profile</a>
+    <a href="upload.php">Upload</a>
     <a href="logout.php">Logout</a>
     <?php endif ?>
     <div class="gg">
@@ -42,7 +43,35 @@ if (isset($_POST['com'])) {
             echo '<img src="gallery/'.$row['imgname'].'">
                 <h1>'.$row["imgtitle"].'</h1>
                 <p>'.$row["imgdes"].'</p>
-                <a href="thgallery.php?userid='.$row['userid'].'">Their Gallery</a><br>';
+                <a href="thgallery.php?userid='.$row['userid'].'">Their Gallery</a>';
+            if ($_SESSION['id'] == $row['userid']) { ?>
+                <form method="post" action="">
+                <input type="submit" name="del" value="Delete">
+                </form>
+                <?php
+                if (isset($_POST['del'])) {
+                    unlink('gallery/'.$row['imgname']);
+
+                    include_once 'connection.php';
+
+                    try {
+                        $sql = "DELETE FROM gallery WHERE id = :id";
+                        $st = $dp->prepare($sql);
+                        $st->execute(array(':id' => htmlentities($_GET['id'])));
+
+                        $sql = "DELETE FROM com WHERE id = :id";
+                        $st = $dp->prepare($sql);
+                        $st->execute(array(':id' => htmlentities($_GET['id'])));
+
+                        $sql = "DELETE FROM `like` WHERE id = :id";
+                        $st = $dp->prepare($sql);
+                        $st->execute(array(':id' => htmlentities($_GET['id'])));
+                        header('location: index.php');
+                    } catch (PDOException $e) {
+                        echo $e->getMessage();
+                    }
+                }
+            }
         }
 
         $sql2 = "SELECT `like`, userid FROM `like` WHERE id = :id";
