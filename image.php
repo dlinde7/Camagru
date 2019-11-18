@@ -1,9 +1,19 @@
 <?php
-$data = $_POST['image'];
+include_once 'session.php';
+include_once 'connection.php';
 
-list($type, $data) = explode(';', $data);
-list(, $data) = explode(',', $data);
-$data = base64_decode($data);
+try {
+    $filenew = uniqid('', true ).".jpg";
+    $image = explode(',', $_POST['baseimage']);
+    $test = base64_decode($image[1]);
+    file_put_contents("upload/".$filenew, $test);
 
-file_put_contents('../upload/image.png', $data);
+    $sql = "INSERT INTO upload (imgname, userid, up_date)
+    VALUES (:imgname, :userid, now())";
+    $st = $dp->prepare($sql);
+    $st->execute(array(':imgname' => $filenew, ':userid' => $_SESSION['id']));
+    header('location: upload.php');
+} catch (PDOException $e) {
+    $result = $e->getMessage();
+}
 ?>

@@ -74,6 +74,12 @@ include_once 'session.php';
         }
         ?>
     </div>
+    <?php
+    echo '<a href="add.php?id=cloud.png&id2='.htmlentities($_GET['id']).'" ><img src="sticker/cloud.png"></a>
+        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities($_GET['id']).'"><img src="sticker/clouds-transparent.png"></a>
+        <a href="add.php?id=beard.png&id2='.htmlentities($_GET['id']).'"><img src="sticker/beard.png"></a>
+        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id']).'"><img src="sticker/sunglasses.png"></a>';
+    ?>
     <?php endif ?>
 </body>
 </html>

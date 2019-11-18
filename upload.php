@@ -1,6 +1,10 @@
 <?php
 include_once 'session.php';
 
+if (isset($_POST['dd'])) {
+    echo $_POST['dd'];
+}
+
 if (isset($_POST['submit'])) {
     $file = $_FILES['file'];
     $filenm = $file['name'];
@@ -110,7 +114,7 @@ try{
     $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
     While ($row = $st->fetch()) {
         echo '<a href="post.php?id='.$row['id'].'">
-            <img src="gallery/'.$row['imgname'].'">
+            <img src="upload/'.$row['imgname'].'">
             </a>';
     }
     echo '<hr>';
