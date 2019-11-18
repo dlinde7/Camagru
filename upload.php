@@ -87,43 +87,43 @@ if (isset($_POST['submit'])) {
         </form>
     <div class="gg">
     <?php
-include_once 'connection.php';
+    include_once 'connection.php';
 
-try{
-    $sql = "SELECT * FROM upload WHERE userid = :userid";
-    $st = $dp->prepare($sql);
-    $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
-    $total = $st->rowCount();
-    if(!isset($_GET['page'])){
-        $page = 1;
-    }
-    else{
-        if(is_numeric($_GET['page'])){
-            $page = $_GET['page'];
-        }
-        else{
+    try{
+        $sql = "SELECT * FROM upload WHERE userid = :userid";
+        $st = $dp->prepare($sql);
+        $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
+        $total = $st->rowCount();
+        if(!isset($_GET['page'])){
             $page = 1;
         }
-    }
-    $amount = 10;
-    $numpages = ceil($total/$amount);
-    $start = ($page - 1) * $amount;
+        else{
+            if(is_numeric($_GET['page'])){
+                $page = $_GET['page'];
+            }
+            else{
+                $page = 1;
+            }
+        }
+        $amount = 10;
+        $numpages = ceil($total/$amount);
+        $start = ($page - 1) * $amount;
 
-    $sql = "SELECT * FROM upload WHERE userid = :userid ORDER BY id DESC LIMIT $start, $amount";
-    $st = $dp->prepare($sql);
-    $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
-    While ($row = $st->fetch()) {
-        echo '<a href="post.php?id='.$row['id'].'">
-            <img src="upload/'.$row['imgname'].'">
-            </a>';
+        $sql = "SELECT * FROM upload WHERE userid = :userid ORDER BY id DESC LIMIT $start, $amount";
+        $st = $dp->prepare($sql);
+        $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
+        While ($row = $st->fetch()) {
+            echo '<a href="post.php?id='.$row['id'].'">
+                <img src="upload/'.$row['imgname'].'">
+                </a>';
+        }
+        echo '<hr>';
+        for($page = 1; $page <= $numpages; $page++){
+            echo "<a href='upload.php?page=".$page."'> ".$page." </a>";
+        }
     }
-    echo '<hr>';
-    for($page = 1; $page <= $numpages; $page++){
-        echo "<a href='upload.php?page=".$page."'> ".$page." </a>";
+    catch(PDOException $err){
     }
-}
-catch(PDOException $err){
-}
         ?>
     </div>
     <?php endif ?>

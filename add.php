@@ -2,6 +2,13 @@
  include_once 'session.php';
 include_once 'connection.php';
 
+if (empty($_GET['id3'])) {
+    $orgin = htmlentities($_GET['id2']);
+}
+else {
+    $orgin = htmlentities($_GET['id3']);
+}
+
 function super_impose($src,$dest,$si)
 {
 $image_1 = imagecreatefromstring(file_get_contents($src));
@@ -35,7 +42,7 @@ try {
 }
 
 try {
-    $name = uniqid('', true ).".png";
+    $name = uniqid('', true ).".sticker".".png";
     $nm = 'upload/'.$name;
     super_impose($og, $nm, $fi);
 
@@ -52,7 +59,7 @@ try {
     $st = $dp->prepare($sql);
     $st->execute(array(':imgname' => $name));
     $row = $st->fetch();
-    header('location: post.php?id='.$row['id'].'');
+    header('location: post.php?id='.$row['id'].'&id2='.$_GET['id2'].'&id3='.$orgin.'');
 } catch (PDOException $e) {
     $result = $e->getMessage();
 }
