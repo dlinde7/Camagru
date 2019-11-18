@@ -59,7 +59,7 @@ try {
     $st = $dp->prepare($sql);
     $st->execute(array(':imgname' => $name));
     $row = $st->fetch();
-    header('location: post.php?id='.$row['id'].'&id2='.$_GET['id2'].'&id3='.$orgin.'');
+    header('location: upload.php?id='.$row['id'].'&id2='.$_GET['id2'].'&id3='.$orgin.'');
 } catch (PDOException $e) {
     $result = $e->getMessage();
 }

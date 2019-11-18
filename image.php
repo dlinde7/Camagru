@@ -16,4 +16,15 @@ try {
 } catch (PDOException $e) {
     $result = $e->getMessage();
 }
+
+try {
+
+    $sql = "SELECT * FROM upload WHERE imgname = :imgname";
+    $st = $dp->prepare($sql);
+    $st->execute(array(':imgname' => $filenew));
+    $row = $st->fetch();
+    header('location: upload.php?id='.$row['id'].'');
+} catch (PDOException $e) {
+    $result = $e->getMessage();
+}
 ?>

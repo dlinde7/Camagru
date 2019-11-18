@@ -33,6 +33,17 @@ if (isset($_POST['submit'])) {
                 } catch (PDOException $e) {
                     $result = $e->getMessage();
                 }
+                
+                try {
+
+                    $sql = "SELECT * FROM upload WHERE imgname = :imgname";
+                    $st = $dp->prepare($sql);
+                    $st->execute(array(':imgname' => $filenew));
+                    $row = $st->fetch();
+                    header('location: upload.php?id='.$row['id'].'');
+                } catch (PDOException $e) {
+                    $result = $e->getMessage();
+                }
             }
             else {
                 $result = "File to big";
@@ -60,10 +71,9 @@ if (isset($_POST['submit'])) {
 <body>
     <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
-    <a href="login.php">Login</a>
-    <a href="reg.php">Sign Up</a>
+    <?php header('location: login.php'); ?>
     <?php else: ?>
-    <a href="accountset.php">Profile settings</a>
+    <a href="account.php">Profile</a>
     <a href="upload.php">Upload</a>
     <a href="logout.php">Logout</a>
 
@@ -73,7 +83,7 @@ if (isset($_POST['submit'])) {
             <img id="photo" src="Logo/43.png" alt="" width="400">
             <br>
             <button id="snap" class="booth-capture-button">Take photo</button>
-            <button id="upload" class="booth-capture-button">Upload</button>
+            <button id="upload" class="booth-capture-button">Use</button>
     </div>
     
 	<script src="ImageCapture.js"></script>
@@ -83,48 +93,12 @@ if (isset($_POST['submit'])) {
     }?>
     <form action="" method="POST" enctype="multipart/form-data">
         <input type="file" name="file">
-        <button type="submit" name="submit">UPLOAD</button>
+        <button type="submit" name="submit">Use</button>
         </form>
     <div class="gg">
     <?php
-    include_once 'connection.php';
-
-    try{
-        $sql = "SELECT * FROM upload WHERE userid = :userid";
-        $st = $dp->prepare($sql);
-        $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
-        $total = $st->rowCount();
-        if(!isset($_GET['page'])){
-            $page = 1;
-        }
-        else{
-            if(is_numeric($_GET['page'])){
-                $page = $_GET['page'];
-            }
-            else{
-                $page = 1;
-            }
-        }
-        $amount = 10;
-        $numpages = ceil($total/$amount);
-        $start = ($page - 1) * $amount;
-
-        $sql = "SELECT * FROM upload WHERE userid = :userid ORDER BY id DESC LIMIT $start, $amount";
-        $st = $dp->prepare($sql);
-        $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
-        While ($row = $st->fetch()) {
-            echo '<a href="post.php?id='.$row['id'].'">
-                <img src="upload/'.$row['imgname'].'">
-                </a>';
-        }
-        echo '<hr>';
-        for($page = 1; $page <= $numpages; $page++){
-            echo "<a href='upload.php?page=".$page."'> ".$page." </a>";
-        }
-    }
-    catch(PDOException $err){
-    }
-        ?>
+    require 'post.php';
+    ?>
     </div>
     <?php endif ?>
 </body>

@@ -9,14 +9,9 @@ include_once 'session.php';
 </head>
 <body>
 
-    <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
-    <a href="login.php">Login</a>
-    <a href="reg.php">Sign Up</a>
+    <?php header('location: login.php'); ?>
     <?php else: ?>
-    <a href="account.php">Profile</a>
-    <a href="upload.php">Upload</a>
-    <a href="logout.php">Logout</a>
     <div class="gg">
     <?php
     include_once 'connection.php';
@@ -83,7 +78,7 @@ include_once 'session.php';
                 $sql = "DELETE FROM upload WHERE id = :id";
                 $st = $dp->prepare($sql);
                 $st->execute(array(':id' => htmlentities($_GET['id'])));
-                header('location: post.php?id='.htmlentities($_GET['id3']).'');
+                header('location: upload.php?id='.htmlentities($_GET['id3']).'');
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -99,8 +94,9 @@ include_once 'session.php';
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
-            if (strstr($name, 'sticker')) {
-                
+            if (strstr($name, 'sticker') && $_GET['id2'] != $_GET['id3']) {
+                unlink('upload/'.$row['imgname']);
+
                 try {
                     $sql = "DELETE FROM upload WHERE id = :id";
                     $st = $dp->prepare($sql);
@@ -140,8 +136,8 @@ include_once 'session.php';
         $st = $dp->prepare($sql);
         $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
         While ($row = $st->fetch()) {
-            if (strstr($row['imgname'], 'sticker') && $row['id'] != $_GET['id']) {
-                echo '<a href="post.php?id='.$row['id'].'">
+            if ($row['id'] != $_GET['id']) {
+                echo '<a href="upload.php?id='.$row['id'].'">
                 <img src="upload/'.$row['imgname'].'" width="50">
                 </a>';
             }
@@ -156,10 +152,10 @@ include_once 'session.php';
         ?>
     </div>
     <?php
-    echo '<a href="add.php?id=cloud.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'" ><img src="sticker/cloud.png"></a>
-        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/clouds-transparent.png"></a>
-        <a href="add.php?id=beard.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/beard.png"></a>
-        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/sunglasses.png"></a>';
+    echo '<a href="add.php?id=cloud.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'" ><img src="sticker/cloud.png" width="100"></a>
+        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/clouds-transparent.png" width="100"></a>
+        <a href="add.php?id=beard.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/beard.png" width="100"></a>
+        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/sunglasses.png" width="100"></a>';
     ?>
     <?php endif ?>
 </body>
