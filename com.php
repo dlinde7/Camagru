@@ -2,6 +2,14 @@
 include_once 'session.php';
 include_once 'connection.php';
 
+if (isset($_SESSION['username'])) {
+    if ((time() - $_SESSION['time']) > 600) {
+        header("location: logout.php");
+    }
+    else {
+        $_SESSION['time'] = time();
+    }
+}
 if (isset($_POST['com'])) {
     $com = htmlentities($_POST['com']);
     
@@ -18,19 +26,23 @@ if (isset($_POST['com'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Home</title>
+    <title>Sticket</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <a href="index.php">Home</a>
+    <ul>
+    <li><a href="index.php">Home</a></li>
     <?php if(!isset($_SESSION['username'])): ?>
-    <a href="login.php">Login</a>
-    <a href="reg.php">Sign Up</a>
+    <li style="float:right"><a href="login.php">Login</a></li>
+    <li style="float:right"><a href="reg.php">Sign Up</a></li>
+    </ul>
     <?php else: ?>
-    <a href="account.php">Profile</a>
-    <a href="upload.php">Upload</a>
-    <a href="logout.php">Logout</a>
+    <li><a href="account.php">Profile</a></li>
+    <li style="float:right"><a href="logout.php">Logout</a></li>
+    <li style="float:right"><a href="upload.php">Upload</a></li>
+    </ul>
     <?php endif ?>
+    <br><br><br>
     <div class="gg">
     <?php
     include_once 'connection.php';
@@ -103,8 +115,8 @@ if (isset($_POST['com'])) {
         <form method="post" action="">
         <table>
             <tr><td>Comment</td>
-            <td><textarea name="com" placeholder="Enter comment..." required></textarea></td></tr>
-            <tr><td></td><td><input type="submit" value="Post"></td></tr>
+            <td><textarea style="resize: none" name="com" placeholder="Enter comment..." required></textarea></td></tr>
+            <tr><td></td><td><input type="submit" value="Post"></td><td>Does not take emojies</td></tr>
         </table>
         <?php endif ?>
         <?php
@@ -113,10 +125,18 @@ if (isset($_POST['com'])) {
         $st3->execute(array(':id' => htmlentities($_GET['id'])));
 
         While ($row3 = $st3->fetch()) {
-            echo '<h3>'.$row3["user"].'</h3>
-                <p>'.$row3["com"].'</p>';
+            echo '<div class="gf">
+                <h3>'.$row3["user"].'</h3>
+                <p>'.$row3["com"].'</p>
+                </div>';
         }
     ?>
+    </div>
+    <br><br><br><br>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
     </div>
 </body>
 </html>

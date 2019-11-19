@@ -61,10 +61,16 @@ $dp = null;
 <html>
 <head>
     <title>Camagru Sign up</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.php">Home</a>
-    <br>
+    <?php if(!isset($_SESSION['username'])): ?>
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li style="float:right"><a class="active" href="login.php">Login</a></li>
+    <li style="float:right"><a href="reg.php">Sign Up</a></li>
+    </ul>
+    <br><br><br><br>
 
     <?php
     if (isset($result2)) {
@@ -79,5 +85,13 @@ $dp = null;
         <tr><td></td><td><input type="submit" value="Send"></td></tr>
     </table>
     </form>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
+    <?php else: ?>
+    <?php header('location: index.php'); ?>
+    <?php endif ?>
 </body>
 </html>

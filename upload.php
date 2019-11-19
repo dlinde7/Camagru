@@ -1,6 +1,15 @@
 <?php
 include_once 'session.php';
 
+if (isset($_SESSION['username'])) {
+    if ((time() - $_SESSION['time']) > 600) {
+        header("location: logout.php");
+    }
+    else {
+        $_SESSION['time'] = time();
+    }
+}
+
 if (isset($_POST['dd'])) {
     echo $_POST['dd'];
 }
@@ -63,20 +72,15 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-	<title>Document</title>
-
-	<link rel="stylesheet" type="text/css" href="videoCss.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
     <?php header('location: login.php'); ?>
     <?php else: ?>
-    <a href="account.php">Profile</a>
-    <a href="upload.php">Upload</a>
-    <a href="logout.php">Logout</a>
-
+    <br><br><br>
+    <div class="gg2">
     <div class="booth">
 		    <video id="video" width="400" height="300" autoplay></video>
             <canvas id="canvas" width="400" height="300" name="image"></canvas>
@@ -87,18 +91,23 @@ if (isset($_POST['submit'])) {
     </div>
     
 	<script src="ImageCapture.js"></script>
-    
+    <br>
     <?php if (isset($result)) {
         echo $result;
     }?>
     <form action="" method="POST" enctype="multipart/form-data">
         <input type="file" name="file">
         <button type="submit" name="submit">Use</button>
-        </form>
-    <div class="gg">
+    </form>
     <?php
     require 'post.php';
     ?>
+    </div>
+    <br><br><br>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
     </div>
     <?php endif ?>
 </body>

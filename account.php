@@ -1,22 +1,33 @@
 <?php
 include_once 'session.php';
+
+if (isset($_SESSION['username'])) {
+    if ((time() - $_SESSION['time']) > 600) {
+        header("location: logout.php");
+    }
+    else {
+        $_SESSION['time'] = time();
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Home</title>
+    <title>Sticket Profile</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.php">Home</a>
     <?php if(!isset($_SESSION['username'])): ?>
-    <a href="login.php">Login</a>
-    <a href="reg.php">Sign Up</a>
+    <?php header('location: login.php'); ?>
     <?php else: ?>
-    <a href="accountset.php">Profile settings</a>
-    <a href="upload.php">Upload</a>
-    <a href="logout.php">Logout</a>
-    <div class="gg">
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li><a href="accountset.php">Profile settings</a></li>
+    <li style="float:right"><a href="logout.php">Logout</a></li>
+    <li style="float:right"><a href="upload.php">Upload</a></li>
+    </ul>
+    <br><br><br>
     <?php
     include_once 'connection.php';
 
@@ -44,19 +55,27 @@ include_once 'session.php';
         $st = $dp->prepare($sql);
         $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
         While ($row = $st->fetch()) {
-            echo '<a href="com.php?id='.$row['id'].'">
+            echo '<div>
+                <a href="com.php?id='.$row['id'].'">
                 <img src="gallery/'.$row['imgname'].'">
-                </a>';
+                </a>
+                </div>';
         }
         echo '<hr>';
+        echo '<div class="page">';
         for($page = 1; $page <= $numpages; $page++){
             echo "<a href='account.php?page=".$page."'> ".$page." </a>";
         }
+        echo '</div>';
     }
     catch(PDOException $err){
     }
         ?>
-    </div>
     <?php endif ?>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
 </body>
 </html>

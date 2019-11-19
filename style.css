@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: lightblue;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+  
+li {
+    float: left;
+}
+  
+li a {
+    display: block;
+    color: Black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover:not(.active) {
+    background-color: lightcoral;
+}
+
+.page {
+    text-align: center;
+    width: 100%;
+}
+
+.gg {
+    background-color: pink;
+    width: 100%;
+    text-align: center;
+}
+
+.gg2 {
+    text-align: center;
+    width: 100%;
+}
+
+.gf {
+    background-color: lightcyan;
+    width: 88%;
+    border: 1px solid black;
+}
+
+.active {
+    background-color: pink;
+}
+
+textarea {
+    width: 500%;
+    height: 75px;
+}
+
+div {
+    flex: auto;
+    display:inline-block;
+    text-align: center;
+}
+
+div img{
+    width: 250px;
+    height: 200px;
+    border: solid 2px black;
+    margin: 2px;
+}
+
+input[type=text] {
+    outline: none;
+    border: 1px solid #555;
+}
+input[type=email] {
+    outline: none;
+    border: 1px solid #555;
+}
+input[type=password] {
+    outline: none;
+    border: 1px solid #555;
+}
+input[type=file] {
+    outline: none;
+    border: 1px solid #555;
+}
+input[type=submit] {
+    outline: none;
+    border: 1px solid #555;
+    background:black;
+    color: white;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+    background-color: skyblue;
+    color: black;
+    text-align: center;
+}
+
+.booth {
+	width: 805px;
+	background: lavenderblush;
+	border: 10px solid #ddd;
+	margin: 0 auto;
+}
+
+.booth img {
+    width: 400px;
+    height: 300px;
+    border: none;
+    margin: 0;
+}
+
+.tum img {
+    width: 40px;
+    height: 30px;
+}
+
+.tum2 img {
+    width: 200px;
+    height: 150px;
+}
+
+.booth-capture-button {
+	margin: 10px 0;
+	padding: 10px 20px;
+	background-color: forestgreen;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+}
+
+#canvas {
+	display: none;
+}

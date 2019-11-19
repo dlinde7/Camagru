@@ -44,11 +44,11 @@ if (isset($pwd) && isset($pwd2) && $pwd != null) {
         $c = 1;
     }
     if (strlen($pwd) < 8) {
-        array_push($result, "Passwords to short between 8 -16");
+        array_push($result, "Passwords to short must be between 8-16 characters");
         $c = 1;
     }
     if (strlen($pwd) > 16) {
-        array_push($result, "Passwords to long between 8-16");
+        array_push($result, "Passwords to long must be between 8-16 characters");
         $c = 1;
     }
     if(!preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $pwd)){
@@ -118,5 +118,31 @@ if ($ch) {
     if ($ch == true)
     $result2 = "Your changes have been sent to ".$email;
 }
-
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li><a href="accountset.php">Profile settings</a></li>
+    <li style="float:right"><a href="logout.php">Logout</a></li>
+    <li style="float:right"><a href="upload.php">Upload</a></li>
+    </ul>
+    <br><br>
+    <?php if (!isset($result2) && $result == NULL) {
+        echo '<div class="page">
+            <p>Page not Accesible</p>
+            </div>';
+    } ?>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
+</body>
+</html>

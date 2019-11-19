@@ -2,6 +2,14 @@
 include_once 'session.php';
 include_once 'connection.php';
 
+if (isset($_SESSION['username'])) {
+    if ((time() - $_SESSION['time']) > 600) {
+        header("location: logout.php");
+    }
+    else {
+        $_SESSION['time'] = time();
+    }
+}
 if (isset($_POST['cpwd'])) {
     $cpwd = htmlentities($_POST['cpwd']);
     $user = htmlentities($_POST['new_user']);
@@ -108,23 +116,32 @@ $dp = null;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Home</title>
+    <title>Sticket Settings</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <?php if(!isset($_SESSION['username'])): ?>
-    <p>Must be Loged in to acces this page</p>
+    <?php header('location: login.php'); ?>
     <?php else: ?>
-    <h4><?php echo $_SESSION['username']?></h4>
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li><a class="active" href="accountset.php">Profile settings</a></li>
+    <li style="float:right"><a href="logout.php">Logout</a></li>
+    <li style="float:right"><a href="upload.php">Upload</a></li>
+    </ul>
+    <br><br>
+    <h1><?php echo $_SESSION['username']?></h1>
 ​
     <?php
     if (isset($result2)) {
-        echo $result2;
+        echo $result2.'<br>';
     }
     if (isset($result)) {
         foreach ($result as $value) {
             echo "$value <br>";
         }
+        echo '<br>';
     }
     ?>
     <form action="" method="post">
@@ -143,7 +160,11 @@ $dp = null;
             <tr><td><input style='float:right' type="submit" name="del" value="Delete Profile"></td><td><input style='float:right' type="submit" name="ResetBtn" value="Update profile"></td></tr>
         </table>
         </form>
-    <p><a href="account.php">Back</a><br><a href="logout.php">Logout</a></p>
     <?php endif ?>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
 </body>
 </html>

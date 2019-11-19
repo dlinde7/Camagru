@@ -14,14 +14,12 @@ if (isset($_GET['token'])) {
             $st2->execute(array(':valid' => 'Y', ':id' => $row['id']));
         }
         else {
-            echo "Account already validated"; ?>
-            <br><a href="login.php">Login</a>
-            <?php
+            $result = "Account already validated";
             $n = 5;
         }
     }
     else {
-        echo "Invalid url";
+        $result = "Invalid url";
     }
 
     if ($n != 5) {
@@ -31,19 +29,44 @@ if (isset($_GET['token'])) {
 
         if ($row = $st->fetch()) {
             if ($row['valid'] == 'Y') {
-                echo "Account succesfully validated"; ?>
-                 <br><a href="login.php">Login</a>
-            <?php
+                $result =  "Account succesfully validated";
+                 
+
             }
             else {
-                echo "Error with validation";
+                $result = "Error with validation";
             }
         }
         else {
-            echo "Validtion ERROR";
+            $result = "Validtion ERROR";
         }
     }
 }
 
 $dp = null;
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li><a href="accountset.php">Profile settings</a></li>
+    <li style="float:right"><a href="logout.php">Logout</a></li>
+    <li style="float:right"><a href="upload.php">Upload</a></li>
+    </ul>
+    <br><br><br>
+    <?php
+        echo $result;
+     ?>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
+</body>
+</html>

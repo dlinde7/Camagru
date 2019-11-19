@@ -1,7 +1,7 @@
 <?php
 include_once 'connection.php';
 
-if (isset($_POST['user'])) {
+if (isset($_POST['reg'])) {
     $user = htmlentities($_POST['user']);
     $email = htmlentities($_POST['email']);
     $pwd = htmlentities($_POST['pwd']);
@@ -35,10 +35,16 @@ $dp = null;
 <html>
 <head>
     <title>Camagru Sign up</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.php">Home</a>
-    <br>
+    <?php if(!isset($_SESSION['username'])): ?>
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li style="float:right"><a href="login.php">Login</a></li>
+    <li style="float:right"><a class="active" href="reg.php">Sign Up</a></li>
+    </ul>
+    <br><br><br><br>
 
     <?php
     if (isset($result2)) {
@@ -61,8 +67,16 @@ $dp = null;
         <td><input type="password" name="pwd" value="" placeholder="Enter Password" required></td></tr>
         <tr><td>Re-Password</td>
         <td><input type="password" name="repwd" value="" placeholder="Re-Enter Password" required></td></tr>
-        <tr><td></td><td><input type="submit" value="Sign up"></td></tr>
+        <tr><td></td><td><input type="submit" name="reg" value="Sign up"></td></tr>
     </table>
     </form>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
+    <?php else: ?>
+    <?php header('location: index.php'); ?>
+    <?php endif ?>
 </body>
 </html>

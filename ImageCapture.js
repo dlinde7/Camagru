@@ -32,23 +32,22 @@
 	})
 
 	document.getElementById("upload").addEventListener("click", function(){
-		var dataURL = canvas.toDataURL("image/jpeg");
-		//console.log("PHP request");
-		var dataURL = canvas.toDataURL();
-		//creation of form
-		const form = document.createElement('form');
-		form.action = 'image.php';
-		form.method = 'post';
-		//creation of image
-		const myogimage = document.createElement('input');
-		myogimage.value = dataURL;
-		myogimage.name = 'baseimage';
-		//add input to form
-		form.appendChild(myogimage);
-		//append form to document
-		document.body.appendChild(form);
-		//self submit such form
-		form.submit();
+		if(photo.getAttribute('src') != canvas.toDataURL('image/png')) {
+			alert('No image taken');
+		}
+    	else {
+			var dataURL = canvas.toDataURL("image/jpeg");
+			var dataURL = canvas.toDataURL();
+			const form = document.createElement('form');
+			form.action = 'image.php';
+			form.method = 'post';
+			const myogimage = document.createElement('input');
+			myogimage.value = dataURL;
+			myogimage.name = 'baseimage';
+			form.appendChild(myogimage);
+			document.body.appendChild(form);
+			form.submit();
+		}
 	})
 			
 })();

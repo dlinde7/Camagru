@@ -21,6 +21,12 @@ if (isset($_POST['login'])) {
             if (password_verify($pwd, $h_pwd)) {
                 $_SESSION['id'] = $id;
                 $_SESSION['username'] = $username;
+                $_SESSION['time'] = time();
+
+                if (isset($_POST['rememberme'])) {
+                    setcookie("username", $_POST['user'], time() + (365*60*24*24));
+                    setcookie("password", $_POST['pwd'], time() + (365*60*24*24));
+                }
                 if ($preference == 'Y') {
                     $_SESSION['preference'] = "ON";
                 }
@@ -89,10 +95,16 @@ $dp = null;
 <html>
 <head>
     <title>Camagru Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.php">Home</a>
-    <br>
+    <?php if(!isset($_SESSION['username'])): ?>
+    <ul>
+    <li><a href="index.php">Home</a></li>
+    <li style="float:right"><a class="active" href="login.php">Login</a></li>
+    <li style="float:right"><a href="reg.php">Sign Up</a></li>
+    </ul>
+    <br><br><br><br>
     <?php echo $result ?>
     <?php if ($result == "Account not verified") {?>
     <a href="verify.php?re=<?php echo $user ?>"> re-send verification email?</a>    
@@ -100,13 +112,21 @@ $dp = null;
     <form method="post" action="">
     <table>
         <tr><td>Username</td>
-        <td><input type="tesxt" value="" placeholder="Enter Username" required name="user"></td></tr>
+        <td><input type="text" value="<?php if (isset($_COOKIE['username'])) {echo $_COOKIE['username'];} ?>" placeholder="Enter Username" required name="user"></td></tr>
         <tr><td>Password</td>
-        <td><input type="password" value="" placeholder="Enter Password" required name="pwd"></td></tr>
+        <td><input type="password" value="<?php if (isset($_COOKIE['password'])) {echo $_COOKIE['password'];} ?>" placeholder="Enter Password" required name="pwd"></td></tr>
+        <tr><td></td><td><input type="checkbox" name="rememberme">Remember me</td></tr>
         <tr><td></td><td><input type="submit" value="Login" name="login"></td></tr>
-        <tr><td><a href="reg.php">Sign up</a></td>
-        <td>Forgot <a href="pwdre.php">password?</a></td></tr>
+        <tr><td></td><td>Forgot <a href="pwdre.php">password?</a></td></tr>
     </table>
     </form>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
+    <?php else: ?>
+    <?php header('location: index.php'); ?>
+    <?php endif ?>
 </body>
 </html>
