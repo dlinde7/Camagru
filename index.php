@@ -31,6 +31,11 @@ if (isset($_SESSION['username'])) {
     </ul>
     <?php endif ?>
     <br><br><br>
+    <div class="footer">
+        <hr>
+        <footer>&copy; Copyright 2019 dlinde</footer>
+        <br>
+    </div>
     <?php
     include_once 'connection.php';
 
@@ -73,10 +78,5 @@ if (isset($_SESSION['username'])) {
     catch(PDOException $err){
     }
     ?>
-    <div class="footer">
-        <hr>
-        <footer>&copy; Copyright 2019 dlinde</footer>
-        <br>
-    </div>
 </body>
 </html>
