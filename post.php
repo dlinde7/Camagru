@@ -45,7 +45,7 @@ if (isset($_SESSION['username'])) {
         <form method="post" action="">
         <table>
             <tr><td>Title</td>
-            <td><input type="text" name="title" placeholder="Enter Title"></td></tr>
+            <td><input type="text" name="title" placeholder="Enter Title"></td><td>No more than 30 characters</td></tr>
             <tr><td>Description</td>
             <td><textarea style="resize: none" name="des" placeholder="Enter description..."></textarea></td></tr>
             <tr><td><input type="submit" name="del" value="Delete"></td><td><input type="submit" name="post" value="Post"></td>
@@ -68,7 +68,7 @@ if (isset($_SESSION['username'])) {
                 VALUES (:imgname, :imgtitle, :imgdes, :userid, now())";
                 $tst = $dp->prepare($sql);
                 $tst->execute(array(':imgname' => $name, ':imgtitle' => $title, ':imgdes' => $des, ':userid' => $_SESSION['id']));
-                header('location: upload.php');
+                header('location: index.php');
             } catch (PDOException $e) {
                 $result = "Image already been Posted";
                 echo $result.'<br>';

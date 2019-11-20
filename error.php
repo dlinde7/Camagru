@@ -33,6 +33,10 @@ if (isset($_POST['reg'])) {
         array_push($result, "Username to short");
         $er = 1;
     }
+    if (strlen($user) > 20) {
+        array_push($result, "Username to long");
+        $er = 1;
+    }
     if ($c == 1) {
         array_push($result, "Not a valid email");
         $er = 1;
