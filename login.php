@@ -16,11 +16,13 @@ if (isset($_POST['login'])) {
         $h_pwd = $row['password'];
         $username = $row['username'];
         $preference= $row['preference'];
+        $token = $row['token'];
 
         if ($valid == 'Y'){
             if (password_verify($pwd, $h_pwd)) {
                 $_SESSION['id'] = $id;
                 $_SESSION['username'] = $username;
+                $_SESSION['token'] = $token;
                 $_SESSION['time'] = time();
 
                 if (isset($_POST['rememberme'])) {
