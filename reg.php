@@ -34,7 +34,7 @@ $dp = null;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Sign up</title>
+    <title>Sticket Sign up</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

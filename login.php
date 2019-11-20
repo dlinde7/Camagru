@@ -96,7 +96,7 @@ $dp = null;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Login</title>
+    <title>Sticket Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

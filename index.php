@@ -14,7 +14,7 @@ if (isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camagru Home</title>
+    <title>Sticket</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
