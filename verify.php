@@ -14,7 +14,7 @@
             $token = $row['token'];
         }
 
-        $url = "localhost:8080/Camagru/";
+        $url = $_SERVER['HTTP_HOST'].str_replace("reg.php", "", $_SERVER['REQUEST_URI']);
     
         $subject = "Sticket Account Verification";
     
