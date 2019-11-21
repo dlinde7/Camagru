@@ -2,7 +2,7 @@
 $c = 0;
 $result = array();
 $ch = array();
-if (isset($user)) {
+if (isset($user) && $user != null) {
     if (strlen($user) < 4) {
         array_push($result, "Username to short");
     }
@@ -18,7 +18,7 @@ if (isset($user)) {
         }
     }
 }
-if (isset($email) && $emal != null) {
+if (isset($email) && $email != null) {
     $hold = $email;
     $hold = filter_var($hold, FILTER_SANITIZE_EMAIL);
     if (filter_var($hold, FILTER_VALIDATE_EMAIL) === false) {
