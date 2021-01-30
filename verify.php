@@ -2,8 +2,7 @@
     include_once 'connection.php';
 
     if ($_GET['re']) {
-
-        echo "Hello"
+        
         $sql = "SELECT * FROM users WHERE username = :user";
         $st = $dp->prepare($sql);
         $st->execute(array(':user' => htmlentities($_GET['re'])));
