@@ -2,6 +2,8 @@
 include_once 'session.php';
 include_once 'connection.php';
 
+$result = "";
+
 if (isset($_POST['login'])) {
     $user = htmlentities($_POST['user']);
     $pwd = htmlentities($_POST['pwd']);

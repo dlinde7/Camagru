@@ -33,7 +33,8 @@ if (isset($_SESSION['username'])) {
 
         $sql = "SELECT * FROM upload WHERE id = :id";
         $st = $dp->prepare($sql);
-        $st->execute(array(':id' => htmlentities($_GET['id'])));
+        if (isset($_GET['id'])) 
+            $st->execute(array(':id' => htmlentities($_GET['id'])));
 
         if ($row = $st->fetch()) {
             $file = 'upload/'.$row['imgname'];
@@ -149,17 +150,17 @@ if (isset($_SESSION['username'])) {
         $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
         echo '<div class="tum">';
         While ($row = $st->fetch()) {
-            if ($row['id'] != $_GET['id']) {
-                echo '<a href="upload.php?id='.$row['id'].'">
-                <img src="upload/'.$row['imgname'].'">
-                </a>';
-            }
+                if ($row['id'] != isset($_GET['id'])) {
+                    echo '<a href="upload.php?id='.$row['id'].'">
+                    <img src="upload/'.$row['imgname'].'">
+                    </a>';
+                }
         }
         echo '</div>';
         echo '<hr>';
         echo '<div class="page">';
         for($page = 1; $page <= $numpages; $page++){
-            echo "<a href='upload.php?page=".$page."&id=".htmlentities($_GET['id'])."&id2=".htmlentities($_GET['id2'])."&id3=".htmlentities($_GET['id3'])."'> ".$page." </a>";
+            echo "<a href='upload.php?page=".$page."&id=".htmlentities(isset($_GET['id']))."&id2=".htmlentities(isset($_GET['id2']))."&id3=".htmlentities(isset($_GET['id3']))."'> ".$page." </a>";
         }
         echo '</div>';
     }
@@ -169,10 +170,10 @@ if (isset($_SESSION['username'])) {
     <br>
     <div class="tum2">
     <?php
-    echo '<a href="add.php?id=cloud.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'" ><img src="sticker/cloud.png" width="100"></a>
-        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/clouds-transparent.png" width="100"></a>
-        <a href="add.php?id=beard.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/beard.png" width="100"></a>
-        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/sunglasses.png" width="100"></a>';
+    echo '<a href="add.php?id=cloud.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'" ><img src="sticker/cloud.png" width="100"></a>
+        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'"><img src="sticker/clouds-transparent.png" width="100"></a>
+        <a href="add.php?id=beard.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'"><img src="sticker/beard.png" width="100"></a>
+        <a href="add.php?id=sunglasses.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'"><img src="sticker/sunglasses.png" width="100"></a>';
     ?>
     </div>
     <br><br><br>
