@@ -180,7 +180,7 @@ if (!isset($_GET['id3']))
     echo '<a href="add.php?id=cloud.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'" ><img src="sticker/cloud.png" width="100"></a>
         <a href="add.php?id=clouds-transparent.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/clouds-transparent.png" width="100"></a>
         <a href="add.php?id=beard.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/beard.png" width="100"></a>
-        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id2']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/sunglasses.png" width="100"></a>';
+        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/sunglasses.png" width="100"></a>';
     ?>
     </div>
     <br><br><br>
