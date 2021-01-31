@@ -9,6 +9,13 @@ if (isset($_SESSION['username'])) {
         $_SESSION['time'] = time();
     }
 }
+
+if (!isset($_GET['id']))
+        $_GET['id'] = "";
+if (!isset($_GET['id2']))
+        $_GET['id2'] = "";
+if (!isset($_GET['id3']))
+        $_GET['id3'] = "";
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +117,7 @@ if (isset($_SESSION['username'])) {
                 echo $e->getMessage();
             }
             if (strstr($name, 'sticker') && $_GET['id2'] != $_GET['id3']) {
-                unlink('upload/'.$row['imgname']);
+                unlink('../upload/'.$row['imgname']);
 
                 try {
                     $sql = "DELETE FROM upload WHERE id = :id";
@@ -150,7 +157,7 @@ if (isset($_SESSION['username'])) {
         $st->execute(array(':userid' => htmlentities($_SESSION['id'])));
         echo '<div class="tum">';
         While ($row = $st->fetch()) {
-                if ($row['id'] != isset($_GET['id'])) {
+                if ($row['id'] != $_GET['id']) {
                     echo '<a href="upload.php?id='.$row['id'].'">
                     <img src="upload/'.$row['imgname'].'">
                     </a>';
@@ -160,7 +167,7 @@ if (isset($_SESSION['username'])) {
         echo '<hr>';
         echo '<div class="page">';
         for($page = 1; $page <= $numpages; $page++){
-            echo "<a href='upload.php?page=".$page."&id=".htmlentities(isset($_GET['id']))."&id2=".htmlentities(isset($_GET['id2']))."&id3=".htmlentities(isset($_GET['id3']))."'> ".$page." </a>";
+            echo "<a href='upload.php?page=".$page."&id=".htmlentities($_GET['id'])."&id2=".htmlentities($_GET['id2'])."&id3=".htmlentities($_GET['id3'])."'> ".$page." </a>";
         }
         echo '</div>';
     }
@@ -170,10 +177,10 @@ if (isset($_SESSION['username'])) {
     <br>
     <div class="tum2">
     <?php
-    echo '<a href="add.php?id=cloud.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'" ><img src="sticker/cloud.png" width="100"></a>
-        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'"><img src="sticker/clouds-transparent.png" width="100"></a>
-        <a href="add.php?id=beard.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'"><img src="sticker/beard.png" width="100"></a>
-        <a href="add.php?id=sunglasses.png&id2='.htmlentities(isset($_GET['id'])).'&id3='.htmlentities(isset($_GET['id3'])).'"><img src="sticker/sunglasses.png" width="100"></a>';
+    echo '<a href="add.php?id=cloud.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'" ><img src="sticker/cloud.png" width="100"></a>
+        <a href="add.php?id=clouds-transparent.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/clouds-transparent.png" width="100"></a>
+        <a href="add.php?id=beard.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/beard.png" width="100"></a>
+        <a href="add.php?id=sunglasses.png&id2='.htmlentities($_GET['id']).'&id3='.htmlentities($_GET['id3']).'"><img src="sticker/sunglasses.png" width="100"></a>';
     ?>
     </div>
     <br><br><br>
